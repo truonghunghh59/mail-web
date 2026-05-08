@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mail Tool</title>
+
+<style>
+body{
+    margin:0;
+    padding:20px;
+    background:#ececec;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.container{
+    max-width:420px;
+    margin:auto;
+}
+
+h1{
+    font-size:38px;
+    margin-bottom:25px;
+    font-weight:bold;
+}
+
+.box{
+    width:100%;
+    height:90px;
+    border-radius:16px;
+    border:2px solid #d9d9d9;
+    background:white;
+    font-size:22px;
+    padding:20px;
+    box-sizing:border-box;
+    margin-bottom:18px;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    padding:24px;
+    font-size:28px;
+    color:white;
+    cursor:pointer;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.blue{
+    background:#0d86ff;
+}
+
+.green{
+    background:#086300;
+}
+
+.yellow{
+    background:#ffc400;
+    color:black;
+}
+
+.purple{
+    background:#b02ac4;
+}
+
+.info{
+    font-size:32px;
+    margin:30px 0;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📩 Ai sài web này sẽ nhặt không ra xu</h1>
+
+<input 
+class="box" 
+id="mailInput"
+placeholder="Không ra xu, không ra xu"
+/>
+
+<button class="btn blue" onclick="generateMail()">
+➕ bạn bị trừ 3k xu
+</button>
+
+<button class="btn green" onclick="clearEmails()">
+🗑️ Xóa Danh Sách Email
+</button>
+
+<input 
+class="box" 
+id="resultMail"
+placeholder="Email sẽ xuất hiện ở đây"
+readonly
+/>
+
+<button class="btn blue" onclick="copyMail()">
+📋 Copy
+</button>
+
+<div class="info">
+📊 Số email còn lại: <span id="count">0</span>
+</div>
+
+<button class="btn yellow" onclick="clearLog()">
+🧹 Clear Log Copy
+</button>
+
+<button class="btn purple">
+📋 Log & Tạo acc Mỹ bị band
+</button>
+
+</div>
+
+<script>
+
+let emails = [];
+let copied = [];
+
+function randomString(length){
+    let chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+    let result = "";
+
+    for(let i=0;i<length;i++){
+        result += chars.charAt(
+            Math.floor(Math.random()*chars.length)
+        );
+    }
+
+    return result;
+}
+
+function generateMail(){
+
+    let mail =
+    randomString(10) + "@gmail.com";
+
+    emails.push(mail);
+
+    document.getElementById("resultMail").value = mail;
+
+    updateCount();
+}
+
+function copyMail(){
+
+    let value =
+    document.getElementById("resultMail").value;
+
+    if(!value){
+        alert("Chưa có email");
+        return;
+    }
+
+    navigator.clipboard.writeText(value);
+
+    copied.push(value);
+
+    alert("Đã copy");
+}
+
+function clearEmails(){
+
+    emails = [];
+
+    document.getElementById("resultMail").value = "";
+
+    updateCount();
+
+    alert("Đã xóa danh sách");
+}
+
+function clearLog(){
+
+    copied = [];
+
+    alert("Đã clear log");
+}
+
+function updateCount(){
+
+    document.getElementById("count").innerText =
+    emails.length;
+}
+
+</script>
+
+</body>
+</html>

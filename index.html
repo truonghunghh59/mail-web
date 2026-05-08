@@ -151,22 +151,37 @@ function randomString(length){
 
 function generateMail(){
 
-    let inputMail =
+    let input =
     document.getElementById("mailInput").value.trim();
 
-    if(!inputMail){
-        alert("Hãy dán mail");
+    if(!input){
+        alert("Hãy dán danh sách mail");
         return;
     }
 
-    emails.push(inputMail);
+    // tách mail theo dòng
+    let newEmails = input.split(/\r?\n/);
 
-    document.getElementById("resultMail").value =
-    inputMail;
+    for(let i = 0; i < newEmails.length; i++){
 
-    document.getElementById("mailInput").value = "";
+        let mail = newEmails[i].trim();
 
+        if(mail){
+            emails.push(mail);
+        }
+    }
+
+    // hiện mail đầu tiên
+    if(emails.length > 0){
+        document.getElementById("resultMail").value =
+        emails[0];
+    }
+
+    // cập nhật số lượng
     updateCount();
+
+    // xóa ô nhập
+    document.getElementById("mailInput").value = "";
 
     alert("Đã lưu mail");
 }

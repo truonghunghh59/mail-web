@@ -155,52 +155,51 @@ function generateMail(){
     document.getElementById("mailInput").value.trim();
 
     if(!input){
-        alert("Hãy dán danh sách mail");
+        alert("Hãy dán list mail");
         return;
     }
 
-    // tách mail theo dòng
-    let newEmails = input.split(/\r?\n/);
+    // tách từng dòng
+    let lines = input.split(/\r?\n/);
 
-    for(let i = 0; i < newEmails.length; i++){
+    for(let i = 0; i < lines.length; i++){
 
-        let mail = newEmails[i].trim();
+        let line = lines[i].trim();
 
-        if(mail){
-            emails.push(mail);
+        if(!line) continue;
+
+        let mail = "";
+
+        // mail|pass
+        if(line.includes("|")){
+            mail = line.split("|")[0];
         }
+
+        // mail:pass
+        else if(line.includes(":")){
+            mail = line.split(":")[0];
+        }
+
+        // chỉ có mail
+        else{
+            mail = line;
+        }
+
+        emails.push(mail);
     }
 
     // hiện mail đầu tiên
     if(emails.length > 0){
+
         document.getElementById("resultMail").value =
         emails[0];
     }
 
-    // cập nhật số lượng
     updateCount();
 
-    // xóa ô nhập
     document.getElementById("mailInput").value = "";
 
-    alert("Đã lưu mail");
-}
-
-function copyMail(){
-
-    let value =
-    document.getElementById("resultMail").value;
-
-    if(!value){
-        alert("Chưa có email");
-        return;
-    }
-
-    navigator.clipboard.writeText(value);
-
-    copied.push(value);
-
-    alert("Đã copy");
+    alert("Đã lưu " + emails.length + " mail");
 }
 
 function clearEmails(){

@@ -125,7 +125,7 @@ readonly
 🧹 Clear Log Copy
 </button>
 
-<button class="btn purple">
+<button class="btn purple big-purple" onclick="copyMail()">
 📋 Log & Tạo acc Mỹ bị band
 </button>
 
@@ -151,14 +151,24 @@ function randomString(length){
 
 function generateMail(){
 
-    let mail =
-    randomString(10) + "@gmail.com";
+    let inputMail =
+    document.getElementById("mailInput").value.trim();
 
-    emails.push(mail);
+    if(!inputMail){
+        alert("Hãy dán mail");
+        return;
+    }
 
-    document.getElementById("resultMail").value = mail;
+    emails.push(inputMail);
+
+    document.getElementById("resultMail").value =
+    inputMail;
+
+    document.getElementById("mailInput").value = "";
 
     updateCount();
+
+    alert("Đã lưu mail");
 }
 
 function copyMail(){
